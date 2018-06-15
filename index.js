@@ -134,7 +134,7 @@ function initConfig(){
         jadeKeep: false
     }, g_conf.yypackJSON.release.cases[program.releaseCase] || {})
 
-    if (g_conf.case.www[0] != '/' && !g_conf.case.www.match(/\\/g){
+    if (g_conf.case.www[0] != '/' && !g_conf.case.www.match(/\\/g)){
         g_conf.case.www = path.join(root, g_conf.case.www)
     }
 

@@ -100,6 +100,8 @@ function transJade(f){
     try{
         // 增加jadeData支持
         let data = {
+            FEDOG: g_conf.case.env,
+            FEPACK: g_conf.case.env,
             YYPACK: g_conf.case.env
         }
 
