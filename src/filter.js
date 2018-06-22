@@ -11,7 +11,7 @@ let releaseConf = g_conf.yypackJSON.release
 
 function filterFile(f){
     //忽略__yypack-tmp
-    if ( f.indexOf('__yypack-tmp/') != -1 ){
+    if ( f.indexOf('__yypack-tmp') != -1 ){
         return false
     }
 

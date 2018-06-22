@@ -144,4 +144,5 @@ exports.clean = function (){
 }
 exports.open = function (){
     exec(`open ${wwwRoot}`)
+    exec(`explorer ${wwwRoot}`)
 }

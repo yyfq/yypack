@@ -129,7 +129,7 @@ function vf(f, a, b){
         let project = releaseConf.project ? releaseConf.project : ''
         let version = gCase.version && vtable[bf] ? `.${vtable[bf]}` : ''
 
-        return a.replace(b, domain + '/' + path.join(project, bo.dir.replace(fromDir, ''), `${bo.name}${version}${bo.ext}`))
+        return a.replace(b, domain + '/' + path.join(project, bo.dir.replace(fromDir, ''), `${bo.name}${version}${bo.ext}`).replace(/\\/g,'/'))
     }
     else {
         return a
@@ -204,6 +204,12 @@ function v3(f){
     if (gCase.htmlVersion && isStatic){
         v = gCase.env.htmlVersion
     }
+
+    util.walk(path.dirname(f2), f=>{
+        if(path.parse(f).ext == '.html'){
+            fs.unlink(f)
+        }
+    })
 
     util.createF(path.join(path.dirname(f2), `${fo.name}${v}${fo.ext}`), body)
 }

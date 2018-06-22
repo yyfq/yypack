@@ -72,7 +72,7 @@ function getBody(f){
     let body = fileTable[f].code
     let rf = path.relative(tmpDir.b, f)
     if(rf.match(/\\/g)){
-        rf = rf.split('\\').join('\\\\')
+        rf = rf.split('\\').join('/')
     }
     let winFuncName = g_conf.case.optimize ? `window["${util.getMd5(rf)}"]` : `window["${rf}"]`
     let body2
@@ -109,7 +109,7 @@ function getBody(f){
             else {
                 let requirePath = path.relative(tmpDir.b, getRequirePath(f, _))
                 if(requirePath.match(/\\/g)){
-                    requirePath = requirePath.split('\\').join('\\\\')
+                    requirePath = requirePath.split('\\').join('/')
                 }
                 let afterStr = g_conf.case.optimize ? `window["${util.getMd5(requirePath)}"]` : `window["${requirePath}"]`
                 
