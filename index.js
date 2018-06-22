@@ -156,9 +156,9 @@ function initConfig(){
 
 function cleanTmpDir(){
     return new Promise((resolve, reject) => {
-        exec(`rm -rf ${path.join(g_conf.root, g_conf.tmp)}`).stdout.on('end', _=>{
-            resolve()
-        })
+        let f = path.join(g_conf.root, g_conf.tmp)
+        util.delDir(f)
+        resolve()
     })
 }
 
