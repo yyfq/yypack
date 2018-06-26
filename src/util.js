@@ -117,10 +117,14 @@ util.delDir = function(dir){
             util.delDir(f)
         }
         else {
-            fs.unlinkSync(f)
+            if(fs.existsSync(f)){
+                 fs.unlinkSync(f)
+            }
         }
     })
-    fs.rmdirSync(dir); 
+    if(fs.existsSync(dir)){
+        fs.rmdirSync(dir); 
+    }
 }
 
 util.isDir = function (f){

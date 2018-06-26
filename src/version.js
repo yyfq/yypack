@@ -205,11 +205,13 @@ function v3(f){
         v = gCase.env.htmlVersion
     }
 
-    util.walk(path.dirname(f2), f=>{
-        if(path.parse(f).ext == '.html'){
-            fs.unlink(f)
-        }
-    })
+    if(fs.existsSync(f2)){
+        util.walk(path.dirname(f2), f=>{
+            if(path.parse(f).ext == '.html'){
+                fs.unlink(f)
+            }
+        })
+    }
 
     util.createF(path.join(path.dirname(f2), `${fo.name}${v}${fo.ext}`), body)
 }

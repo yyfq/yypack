@@ -8,7 +8,7 @@ let util = require('./src/util')
 
 function main(){
     program
-        .version('1.1.0')
+        .version('1.1.1')
         .option('init', 'create yypack.json', _=>{
             createConfig()
         })
@@ -158,7 +158,9 @@ function initConfig(){
 function cleanTmpDir(){
     return new Promise((resolve, reject) => {
         let f = path.join(g_conf.root, g_conf.tmp)
-        util.delDir(f)
+        if(fs.existsSync(f)){
+            util.delDir(f)
+        }
         resolve()
     })
 }
