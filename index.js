@@ -8,7 +8,7 @@ let util = require('./src/util')
 
 function main(){
     program
-        .version('1.0.7')
+        .version('1.1.0')
         .option('init', 'create yypack.json', _=>{
             createConfig()
         })
@@ -122,13 +122,14 @@ function initConfig(){
         }
     }, yypackJSON)
 
+    let home = process.env.HOME || process.env.USERPROFILE
     g_conf.case = deepAssign({
         optimize: false,
         version: false,
         watch: false,
         domain: false,
         reDomain: '',
-        www: path.join(process.env.HOME, '.yypack-tmp/www'),
+        www: path.join(home, '.yypack-tmp/www'),
         env: {},
         jadeDataDir: 'mock',
         jadeKeep: false

@@ -110,15 +110,14 @@ util.copy = function (f1, f2){
 }
 
 //删除文件夹
-util.delDir = function(dir, callback){
+util.delDir = function(dir){
     fs.readdirSync(dir).forEach(item => {
         let f = path.join(dir, item)
         if (fs.statSync(f).isDirectory()){
-            util.delDir(f, callback)
+            util.delDir(f)
         }
         else {
             fs.unlinkSync(f)
-            callback(f)
         }
     })
     fs.rmdirSync(dir); 

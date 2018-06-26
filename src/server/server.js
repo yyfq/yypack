@@ -119,7 +119,7 @@ let server = http.createServer((req, res) => {
                         }
                         else {
                             res.writeHead(200, {
-                                'Content-type': mime[ext],
+                                'Content-type': mime[ext] || '',
                                 'Access-Control-Allow-Origin': '*'
                             })
                             res.write(file, 'binary')
