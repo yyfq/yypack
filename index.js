@@ -8,7 +8,7 @@ let util = require('./src/util')
 
 function main(){
     program
-        .version('1.1.4')
+        .version('1.1.7')
         .option('init', 'create yypack.json', _=>{
             createConfig()
         })

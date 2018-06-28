@@ -192,8 +192,8 @@ def releaseOnline():
 
     #切回到当前目录
     os.chdir(currPath)
-    cmd = 'rm -rf ' + bakTmp
-    exeCmd(cmd)
+    if os.path.exists(bakTmp):
+        shutil.rmtree(bakTmp)
 
     print 'release to fe-release end'
 

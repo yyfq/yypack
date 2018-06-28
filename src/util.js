@@ -121,7 +121,7 @@ util.delDirTemp = function(dir){
           if (fs.statSync(f).isDirectory()){
               try{
                 fs.rmdirSync(dir)
-              }catch{
+              }catch(err){
                 util.delDirTemp(f)
               }
 
