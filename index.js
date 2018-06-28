@@ -8,7 +8,7 @@ let util = require('./src/util')
 
 function main(){
     program
-        .version('1.1.7')
+        .version('1.2.0')
         .option('init', 'create yypack.json', _=>{
             createConfig()
         })
@@ -30,6 +30,7 @@ function createConfig(){
     let conf1 = path.join(root, 'yypack.json')
     let conf2 = path.join(root, 'fepack.json')
     let conf3 = path.join(root, 'run.py')
+    let conf4 = path.join(root, '.gitignore')
 
     if(fs.existsSync(conf2)){
         fs.rename(conf2,conf1, _=>{
@@ -37,12 +38,22 @@ function createConfig(){
                 util.log('fepack文件名转换成功');
             }
         })
+    }else{
+        util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
+        util.log('yypack.json创建成功')
     }
+
     if(fs.existsSync(conf3)){
         fs.unlinkSync(conf3)
-        util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
-        util.log('run.py替换成功')
     }
+    util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
+    util.log('run.py更新成功')
+
+    if(fs.existsSync(conf4)){
+        fs.unlinkSync(conf4)
+    }
+    util.createF(conf4,util.getBody(path.join(__dirname,'/scaffold/gitignore.txt')))
+    util.log('.gitignore更新成功')
 }
 
 function initConfig(){
