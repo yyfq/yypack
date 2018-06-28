@@ -8,7 +8,7 @@ let util = require('./src/util')
 
 function main(){
     program
-        .version('1.1.2')
+        .version('1.1.4')
         .option('init', 'create yypack.json', _=>{
             createConfig()
         })
@@ -28,58 +28,20 @@ function main(){
 function createConfig(){
     let root = process.cwd()
     let conf1 = path.join(root, 'yypack.json')
+    let conf2 = path.join(root, 'fepack.json')
+    let conf3 = path.join(root, 'run.py')
 
-    if (!fs.existsSync(conf1)){
-        util.createF(conf1,
-`{
-    "server": {
-        "port": 8080
-    },
-    "release": {
-        "project": "",
-        "domain": "",
-
-        "cases": {
-            "dev": {
-                "watch": true,
-                "version": false,
-                "optimize": false,
-                "env": {
-                    "ENV": "LOCAL"
-                }
-            },
-            "qa": {
-                "watch": false,
-                "version": false,
-                "optimize": false
-            },
-            "www": {
-                "watch": false,
-                "version": true,
-                "optimize": true
+    if(fs.existsSync(conf2)){
+        fs.rename(conf2,conf1, _=>{
+            if (!_) {
+                util.log('fepack文件名转换成功');
             }
-        },
-
-        "copy": [
-            "**/*.min.js",
-            "**/*.min.css"
-        ],
-        "ignore": [
-            "yypack.json"
-        ],
-        "externals": {
-        },
-        "postcss": {
-        }
-    },
-    "deploy": {
-        "beRelease": "",
-        "feReleaseGit": ""
+        })
     }
-}`
-        )
-
-        util.log('yypack.json创建成功!')
+    if(fs.existsSync(conf3)){
+        fs.unlinkSync(conf3)
+        util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
+        util.log('run.py替换成功')
     }
 }
 
@@ -158,9 +120,7 @@ function initConfig(){
 function cleanTmpDir(){
     return new Promise((resolve, reject) => {
         let f = path.join(g_conf.root, g_conf.tmp)
-        if(fs.existsSync(f)){
-            util.delDir(f)
-        }
+        util.delDir(f)
         resolve()
     })
 }

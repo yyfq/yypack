@@ -111,19 +111,27 @@ util.copy = function (f1, f2){
 
 //删除文件夹
 util.delDir = function(dir){
-    fs.readdirSync(dir).forEach(item => {
-        let f = path.join(dir, item)
-        if (fs.statSync(f).isDirectory()){
-            util.delDir(f)
-        }
-        else {
-            if(fs.existsSync(f)){
-                 fs.unlinkSync(f)
-            }
-        }
-    })
+    util.delDirTemp(dir)
+    util.delDirTemp(dir)
+}
+util.delDirTemp = function(dir){
     if(fs.existsSync(dir)){
-        fs.rmdirSync(dir); 
+      fs.readdirSync(dir).forEach(item => {
+          let f = path.join(dir, item)
+          if (fs.statSync(f).isDirectory()){
+              try{
+                fs.rmdirSync(dir)
+              }catch{
+                util.delDirTemp(f)
+              }
+
+          }
+          else {
+              if(fs.existsSync(f)){
+                   fs.unlinkSync(f)
+              }
+          }
+      })
     }
 }
 
