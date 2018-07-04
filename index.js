@@ -9,7 +9,7 @@ let scaffold = require('./scaffold/scaffold')
 
 function main(){
     program
-        .version('1.2.2')
+        .version('1.2.3')
         .option('init', 'fepack to yypack', _=>{
             createConfig()
         })
