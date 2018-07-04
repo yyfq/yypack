@@ -1,6 +1,6 @@
 {
   "name": "yypack",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "a easy web tool",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,8 @@
     "postcss": "^5.2.6",
     "postcss-pxtorem": "^3.3.1",
     "uglify-js": "^2.7.3",
-    "velocity": "^0.7.2"
+    "velocity": "^0.7.2",
+    "inquirer": "^6.0.0"
   },
   "bin": {
     "yypack": "./bin/yypack"

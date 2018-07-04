@@ -5,11 +5,12 @@ let exec = require('child_process').exec
 let colors = require('colors')
 let deepAssign = require('deep-assign')
 let util = require('./src/util')
+let scaffold = require('./scaffold/scaffold')
 
 function main(){
     program
-        .version('1.2.0')
-        .option('init', 'create yypack.json', _=>{
+        .version('1.2.2')
+        .option('init', 'fepack to yypack', _=>{
             createConfig()
         })
         .option('server [s]', 'a static server', _=>{
@@ -21,6 +22,9 @@ function main(){
             program.releaseCase = _
             initConfig()
             factory()
+        })
+        .option('create [p]', 'create project', _=>{
+            scaffold.create(_)
         })
         .parse(process.argv)
 }
@@ -38,21 +42,19 @@ function createConfig(){
                 util.log('fepack文件名转换成功');
             }
         })
-    }else{
-        util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
-        util.log('yypack.json创建成功')
     }
 
     if(fs.existsSync(conf3)){
         fs.unlinkSync(conf3)
     }
-    util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/run.py')))
+    util.createF(conf3,util.getBody(path.join(__dirname,'/scaffold/template/run.py')))
     util.log('run.py更新成功')
+
 
     if(fs.existsSync(conf4)){
         fs.unlinkSync(conf4)
     }
-    util.createF(conf4,util.getBody(path.join(__dirname,'/scaffold/gitignore.txt')))
+    util.createF(conf4,util.getBody(path.join(__dirname,'/scaffold/template/gitignore.txt')))
     util.log('.gitignore更新成功')
 }
 
