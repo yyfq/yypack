@@ -1,5 +1,6 @@
 let path = require('path')
 let fs = require('fs')
+let os = require('os')
 let program = require('commander')
 let exec = require('child_process').exec
 let colors = require('colors')
@@ -9,7 +10,7 @@ let scaffold = require('./scaffold/scaffold')
 
 function main(){
     program
-        .version('1.2.3')
+        .version('1.2.6')
         .option('init', 'fepack to yypack', _=>{
             createConfig()
         })
@@ -132,9 +133,17 @@ function initConfig(){
 
 function cleanTmpDir(){
     return new Promise((resolve, reject) => {
-        let f = path.join(g_conf.root, g_conf.tmp)
-        util.delDir(f)
-        resolve()
+        if(os.type().match(/Windows/i)){
+            console.log("win")
+            let f = path.join(g_conf.root, g_conf.tmp)
+            util.delDir(f)
+            resolve()
+        }else{
+            console.log("mac")
+            exec(`rm -rf ${path.join(g_conf.root, g_conf.tmp)}`).stdout.on('end', _=>{
+                resolve()
+            })
+        } 
     })
 }
 
