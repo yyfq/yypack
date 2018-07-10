@@ -22,6 +22,7 @@ function transts(){
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "rootDir": ".",
         "outDir": "../b",
         "allowJs": true,

@@ -5,6 +5,9 @@ let util = require('./util')
 let UglifyJS = require("uglify-js")
 var CleanCSS = require('clean-css')
 
+let babel = require('babel-core')
+let es2015 = require('babel-preset-es2015')
+
 let g_conf = global.g_conf
 let tmpDir = g_conf.tmpDir
 let releaseConf = g_conf.yypackJSON.release
@@ -176,6 +179,11 @@ function v2(f){
         v = util.getMd5(body)
         vtable[f] = v
         v = `.${v}`
+    }
+
+    if(fo.ext == '.js'){
+        body = babel.transform(body,{presets: [es2015]}).code
+        body =  UglifyJS.minify(body, {fromString:true, output:{'ascii_only':true, beautify: true},compress: false, mangle: false }).code
     }
 
     util.createF(path.join(path.dirname(f2), `${fo.name}${v}${fo.ext}`), body)
