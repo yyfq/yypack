@@ -161,8 +161,8 @@ util.replaceEnv = function (env, body){
         return body
     }
 
-    return body.replace(/(?:@FEDOG\.(\w+)|@\{FEDOG\.(\w+)\}|@FEPACK\.(\w+)|@\{FEPACK\.(\w+)\}|@YYPACK\.(\w+)|@\{YYPACK\.(\w+)\})/g, (a, b, c, d, e)=>{
-        b = b || c || d || e
+    return body.replace(/(?:@FEDOG\.(\w+)|@\{FEDOG\.(\w+)\}|@FEPACK\.(\w+)|@\{FEPACK\.(\w+)\}|@YYPACK\.(\w+)|@\{YYPACK\.(\w+)\})/g, (a, b, c, d, e, f, g)=>{
+        b = b || c || d || e || g
         if (b in env){
             return env[b]
         }
