@@ -6,6 +6,9 @@ let deepAssign = require('deep-assign')
 let UglifyJS = require("uglify-js")
 var CleanCSS = require('clean-css')
 
+let babel = require('babel-core')
+let es2015 = require('babel-preset-es2015')
+
 let util = require('./util')
 
 let g_conf = global.g_conf
@@ -21,11 +24,22 @@ function optimizeFile(f){
 
     if (util.isext(f, '.js')){
         util.log(`[optimize]: ${rf}`)
+        let body = babel.transform(util.getBody(f),{presets: [es2015]}).code
         util.createF(
             f2,
-            // util.toAscii(UglifyJS.minify(util.getBody(f), {fromString:true, 'ascii_only':true}).code)
-            UglifyJS.minify(util.getBody(f), {fromString:true, output:{'ascii_only':true}}).code
+            UglifyJS.minify(body, {fromString:true, output:{'ascii_only':true}, compress: {
+                unsafe:true,
+                'unsafe_comps':true,
+                'unsafe_math':true,
+                'unsafe_proto':true,
+                'unsafe_regexp':true,
+                unused:true,
+                toplevel:true
+            }, mangle: {
+                toplevel:true
+            }}).code
         )
+
     }
     else if (util.isext(f, '.css')){
         util.log(`[optimize]: ${rf}`)

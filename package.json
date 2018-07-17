@@ -1,6 +1,6 @@
 {
   "name": "yypack",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "a easy web tool",
   "main": "index.js",
   "scripts": {

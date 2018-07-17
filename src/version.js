@@ -181,7 +181,7 @@ function v2(f){
         v = `.${v}`
     }
 
-    if(fo.ext == '.js'){
+    if(fo.ext == '.js' && !gCase.optimize){
         body = babel.transform(body,{presets: [es2015]}).code
         body =  UglifyJS.minify(body, {fromString:true, output:{'ascii_only':true, beautify: true},compress: false, mangle: false }).code
     }
